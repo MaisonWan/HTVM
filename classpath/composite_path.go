@@ -5,20 +5,20 @@ import (
 	"strings"
 )
 
-type CompositeClass []Class
+type CompositePath []Path
 
-func NewCompositeClass(pathList string) CompositeClass {
-	compositeClass := []Class{}
+func NewCompositePath(pathList string) CompositePath {
+	compositeClass := []Path{}
 	var paths = strings.Split(pathList, pathListSeparator)
 	for _, path := range paths {
-		class := NewClass(path)
+		class := NewPath(path)
 		compositeClass = append(compositeClass, class)
 	}
 	return compositeClass
 }
 
 // 读取每个子路径然后返回
-func (self CompositeClass) readClass(className string) ([]byte, Class, error) {
+func (self CompositePath) readClass(className string) ([]byte, Path, error) {
 	for _, class := range self {
 		data, from, err := class.readClass(className)
 		if err == nil {
@@ -29,7 +29,7 @@ func (self CompositeClass) readClass(className string) ([]byte, Class, error) {
 }
 
 // 将每个子路径组合在一起
-func (self CompositeClass) String() string {
+func (self CompositePath) String() string {
 	paths := make([]string, len(self))
 	for i, class := range self {
 		paths[i] = class.String()

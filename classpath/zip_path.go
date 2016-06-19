@@ -7,20 +7,20 @@ import (
 	"errors"
 )
 
-type ZipClass struct {
+type ZipPath struct {
 	absolutePath string
 }
 
-func newZipClass (path string) *ZipClass {
+func newZipPath(path string) *ZipPath {
 	absPath, err := filepath.Abs(path)
 	if err != nil {
 		panic(err)
 	}
-	return &ZipClass{absPath}
+	return &ZipPath{absPath}
 }
 
 // 从Zip里加载class
-func (self *ZipClass) readClass(className string) ([]byte, Class, error) {
+func (self *ZipPath) readClass(className string) ([]byte, Path, error) {
 	reader, err := zip.OpenReader(self.absolutePath)
 	if err != nil {
 		return nil, nil, err
@@ -45,6 +45,6 @@ func (self *ZipClass) readClass(className string) ([]byte, Class, error) {
 	return nil, nil, errors.New("class not found: " + className)
 }
 
-func (self *ZipClass) String() string {
+func (self *ZipPath) String() string {
 	return self.absolutePath
 }
