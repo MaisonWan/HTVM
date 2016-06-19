@@ -11,11 +11,11 @@ type DirClass struct {
 }
 
 func newDirClass(path string) *DirClass {
-	absoluteDir, err := filepath.Abs(path)
+	absDir, err := filepath.Abs(path)
 	if err != nil {
 		panic(err)
 	}
-	return &DirClass{absoluteDir}
+	return &DirClass{absDir}
 }
 
 // 加载类数据
