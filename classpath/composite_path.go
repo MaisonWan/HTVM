@@ -22,7 +22,7 @@ func (self CompositePath) readClass(className string) ([]byte, Path, error) {
 	for _, class := range self {
 		data, from, err := class.readClass(className)
 		if err == nil {
-			return data, from , err
+			return data, from, err
 		}
 	}
 	return nil, nil, errors.New("class not found: " + className)
