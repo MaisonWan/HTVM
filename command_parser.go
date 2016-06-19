@@ -6,6 +6,7 @@ import (
 	"os"
 )
 
+// 解析命令行
 func ParseCommand() *Command {
 	cmd := &Command{}
 
@@ -14,6 +15,7 @@ func ParseCommand() *Command {
 	flag.BoolVar(&cmd.versionFlag, "version", false, "print help meesage")
 	flag.StringVar(&cmd.cpOption, "cp", "", "classpath")
 	flag.StringVar(&cmd.class, "classpath", "", "classpath")
+	flag.StringVar(&cmd.XjreOption, "Xjre", "", "path to jre")
 	flag.Parse()
 
 	jargs := flag.Args()
@@ -24,6 +26,7 @@ func ParseCommand() *Command {
 	return cmd
 }
 
+// 打印命令行说明
 func PrintUsage() {
 	fmt.Printf("Usage: %s [-option] class [args...]\n", os.Args[0])
 }
