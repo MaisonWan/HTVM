@@ -13,7 +13,7 @@ type ClassFile struct {
 	majorVersion uint16
 	// 常量池
 	constantPool ConstantPool
-	// 类访问标志, 表示类或者接口，访问public还是private
+	// 类访问标志, 表示类或者接口，访问public(0x21)还是private
 	accessFlags  uint16
 	// 当前类
 	thisClass    uint16
@@ -68,7 +68,8 @@ func (self *ClassFile) readAndCheckMagic(reader *ClassReader) {
 	}
 }
 
-// 读取版本号
+// 读取版本号，1.2之前才有小版本号，1.2大版本号是46
+// Java 6: 50, Java 7: 51, Java 8: 52
 func (self *ClassFile) readAndCheckVersion(reader *ClassReader) {
 	self.minorVersion = reader.readUint16()
 	self.majorVersion = reader.readUint16()

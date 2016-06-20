@@ -2,10 +2,15 @@ package classfile
 
 //
 type MemberInfo struct {
+	// 常量区
 	cp              ConstantPool
+	// 访问权限
 	accessFlags     uint16
+	// 名字索引
 	nameIndex       uint16
+	// 描述索引
 	descriptorIndex uint16
+	// 属性
 	attributes      []AttributeInfo
 }
 
