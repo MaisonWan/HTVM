@@ -1,7 +1,5 @@
 package classfile
 
-import "unicode/utf16"
-
 type ConstantUtf8Info struct {
 	value string
 }

@@ -2,9 +2,9 @@ package classfile
 
 const (
 	CONSTANT_Class = 7
-	CONSTANT_Fieldref = 9
-	CONSTANT_Methodref = 10
-	CONSTANT_InterfaceMethodref = 11
+	CONSTANT_Field = 9
+	CONSTANT_Method = 10
+	CONSTANT_InterfaceMethod = 11
 	CONSTANT_String = 8
 	CONSTANT_Integer = 3
 	CONSTANT_Float = 4
@@ -31,7 +31,29 @@ func readConstantInfo(reader *ClassReader, cp ConstantPool) ConstantInfo {
 
 func newConstantInfo(tag uint8, cp ConstantPool) ConstantInfo {
 	switch tag {
+	case CONSTANT_Class:
+		return &ConstantClassInfo{cp:cp}
+	case CONSTANT_Field:
+		return &ConstantFieldInfo{ConstantMemberInfo{cp:cp}}
+	case CONSTANT_Method:
+		return &ConstantMethodInfo{ConstantMemberInfo{cp:cp}}
+	case CONSTANT_InterfaceMethod:
+		return &ConstantInterfaceMethodInfo{ConstantMemberInfo{cp:cp}}
+	case CONSTANT_String:
+		return &ConstantStringInfo{cp:cp}
 	case CONSTANT_Integer:
 		return &ConstantIntegerInfo{}
+	case CONSTANT_Float:
+		return &ConstantFloatInfo{}
+	case CONSTANT_Long:
+		return &ConstantLongInfo{}
+	case CONSTANT_Double:
+		return &ConstantDoubleInfo{}
+	case CONSTANT_NameAndType:
+		return &ConstantNameAndTypeInfo{}
+	case CONSTANT_Utf8:
+		return &ConstantUtf8Info{}
+	default:
+		panic("java.lang.ClassFormatError: constant pool tag!")
 	}
 }
