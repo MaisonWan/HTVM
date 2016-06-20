@@ -55,8 +55,8 @@ func (self *ClassFile) read(reader *ClassReader) {
 	self.thisClass = reader.readUint16()
 	self.superClass = reader.readUint16()
 	self.interfaces = reader.readUint16s()
-	//self.fields =
-	//self.methods =
+	self.fields = readMember(reader, self.constantPool)
+	self.methods = readMember(reader, self.constantPool)
 	//self.attributes =
 }
 
@@ -110,13 +110,21 @@ func (self *ClassFile) Methods() []*MemberInfo {
 }
 
 func (self *ClassFile) ClassName() string {
-	return "" //self.thisClass
+	return self.constantPool.getClassName(self.thisClass)
 }
 
 func (self *ClassFile) SuperClassName() string {
+	if self.superClass > 0 {
+		return self.constantPool.getClassName(self.superClass)
+	}
 	return "" // 只有java.lang.Object没有超类
 }
 
 func (self *ClassFile) InterfaceNames() []string {
-	return nil
+	length := len(self.interfaces)
+	interfaceNames := make([]string, length)
+	for i, cpIndex := range self.interfaces {
+		interfaceNames[i] = self.constantPool.getClassName(cpIndex)
+	}
+	return interfaceNames
 }

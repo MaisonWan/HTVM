@@ -12,11 +12,11 @@ func (self *ConstantMemberInfo) readInfo(reader *ClassReader) {
 }
 
 func (self *ConstantMemberInfo) ClassName() string {
-	return
+	return self.cp.getClassName(self.classIndex)
 }
 
 func (self *ConstantMemberInfo) NameAndDescriptor() string {
-	return
+	return self.cp.getNameAndType(self.nameAndTypeIndex)
 }
 
 type ConstantFieldInfo struct {

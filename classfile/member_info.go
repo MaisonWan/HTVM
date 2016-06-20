@@ -20,6 +20,25 @@ func readMember(reader *ClassReader, cp ConstantPool) *MemberInfo {
 		accessFlags:reader.readUint16(),
 		nameIndex:reader.readUint16(),
 		descriptorIndex:reader.readUint16(),
-		//attributes:reader
+		//attributes: read
 	}
+}
+
+func readMembers(reader *ClassReader, cp ConstantPool) []*MemberInfo {
+	memberCount := reader.readUint16()
+	memberInfos := make([]*MemberInfo, memberCount)
+	for i := range memberInfos {
+		memberInfos[i] = readMember(reader, cp)
+	}
+	return memberInfos
+}
+
+// 得到名字
+func (self *MemberInfo) Name() string {
+	return self.cp.getUtf8(self.nameIndex)
+}
+
+// 得到描述
+func (self *MemberInfo) Descriptor() string {
+	return self.cp.getUtf8(self.descriptorIndex)
 }
