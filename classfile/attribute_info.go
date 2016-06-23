@@ -27,16 +27,24 @@ func readAttributes(reader *ClassReader, cp ConstantPool) []AttributeInfo {
 }
 
 // 创建一个新的属性
-func newAttributeInfo(attrName string, length int32, cp ConstantPool) AttributeInfo {
+func newAttributeInfo(attrName string, length uint32, cp ConstantPool) AttributeInfo {
 	switch attrName {
 	case "Code":
+		return &AttributeCode{cp:cp}
 	case "ConstantValue":
+		return &AttributeConstantValue{}
 	case "Deprecated":
+		return &AttributeDeprecated{}
 	case "Exceptions":
+		return &AttributeExceptions{}
 	case "LineNumberTable":
+		return &AttributeLineNumberTable{}
 	case "LocalVariableTable":
+		return &AttributeLocalVariable{}
 	case "SourceFile":
+		return &AttributeSourceFile{cp:cp}
 	case "Synthetic":
+		return &AttributeSynthetic{}
 	default:
 		return &UnparsedAttribute{attrName, length, nil}
 	}
