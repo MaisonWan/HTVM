@@ -5,7 +5,7 @@ type ConstantUtf8Info struct {
 }
 
 func (self *ConstantUtf8Info) readInfo(reader *ClassReader) {
-	length := reader.readUint16()
+	length := uint32(reader.readUint16())
 	bytes := reader.readBytes(length)
 	self.value = decodeMUtf8(bytes)
 }
