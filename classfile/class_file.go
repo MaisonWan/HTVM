@@ -57,7 +57,7 @@ func (self *ClassFile) read(reader *ClassReader) {
 	self.interfaces = reader.readUint16s()
 	self.fields = readMembers(reader, self.constantPool)
 	self.methods = readMembers(reader, self.constantPool)
-	//self.attributes =
+	self.attributes = readAttributes(reader, self.constantPool)
 }
 
 // 读取魔数，并验证合法性

@@ -22,6 +22,12 @@ var startJVM = func(cmd *Command) {
 	fmt.Println("MajorVersion: ", classFile.MajorVersion())
 	fmt.Println("ClassName: ", classFile.ClassName())
 	fmt.Println("AccessFlags: 0x", strconv.FormatInt(int64(classFile.AccessFlags()), 16))
+	fmt.Println("InterfaceNames: ", classFile.InterfaceNames())
+	fmt.Println("Fields: ", classFile.InterfaceNames())
+	//var info *classfile.MemberInfo
+	for i, info := range classFile.Fields() {
+		fmt.Println(i, info.Name(), info.Descriptor())
+	}
 }
 
 func main() {
