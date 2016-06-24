@@ -35,10 +35,6 @@ func printClassFile(classFile *classfile.ClassFile) {
 	fmt.Println("Methods=====================")
 	for i, info := range classFile.Methods() {
 		fmt.Println(i, info.Name(), info.Descriptor())
-		for j, attr := range info.AttributeInfo() {
-			fmt.Println(j, attr.)
-		}
-
 	}
 }
 
