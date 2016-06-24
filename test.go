@@ -18,15 +18,27 @@ var startJVM = func(cmd *Command) {
 		fmt.Printf("Could not find or load main class %s\n", cmd.class)
 		return
 	}
+	printClassFile(classFile)
+}
+
+func printClassFile(classFile *classfile.ClassFile) {
 	//fmt.Printf("class data: %v\n", classData)
 	fmt.Println("MajorVersion: ", classFile.MajorVersion())
 	fmt.Println("ClassName: ", classFile.ClassName())
 	fmt.Println("AccessFlags: 0x", strconv.FormatInt(int64(classFile.AccessFlags()), 16))
 	fmt.Println("InterfaceNames: ", classFile.InterfaceNames())
 	fmt.Println("Fields: ", classFile.InterfaceNames())
-	//var info *classfile.MemberInfo
+	fmt.Println("Fields======================")
 	for i, info := range classFile.Fields() {
 		fmt.Println(i, info.Name(), info.Descriptor())
+	}
+	fmt.Println("Methods=====================")
+	for i, info := range classFile.Methods() {
+		fmt.Println(i, info.Name(), info.Descriptor())
+		for j, attr := range info.AttributeInfo() {
+			fmt.Println(j, attr.)
+		}
+
 	}
 }
 

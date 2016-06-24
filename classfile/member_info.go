@@ -42,3 +42,8 @@ func (self *MemberInfo) Name() string {
 func (self *MemberInfo) Descriptor() string {
 	return self.cp.getUtf8(self.descriptorIndex)
 }
+
+// 属性列表
+func (self *MemberInfo) AttributeInfo() []AttributeInfo {
+	return self.attributes
+}
