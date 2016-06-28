@@ -42,6 +42,7 @@ func printClassFile(classFile *classfile.ClassFile) {
 func testFrame() {
 	frame := runtime.NewFrame(512, 512)
 	testLocalVars(frame.LocalVars())
+	testOpertateStack(frame.OperateStack())
 }
 
 func testLocalVars(v runtime.LocalVars) {
@@ -61,6 +62,23 @@ func testLocalVars(v runtime.LocalVars) {
 	println(v.GetFloat(7))
 	println(v.GetDouble(8))
 	println(v.GetDouble(10))
+}
+
+func testOpertateStack(s *runtime.OperateStack) {
+	s.PushInt(100)
+	s.PushInt(-100)
+	s.PushLong(1234567890)
+	s.PushLong(-1234567890)
+	s.PushFloat(3.1415926)
+	s.PushDouble(2.718281828)
+	s.PushRef(nil)
+	println(s.PopRef())
+	println(s.PopDouble())
+	println(s.PopFloat())
+	println(s.PopLong())
+	println(s.PopLong())
+	println(s.PopInt())
+	println(s.PopInt())
 }
 
 func main() {
