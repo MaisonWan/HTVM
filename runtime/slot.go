@@ -47,8 +47,8 @@ func (self LocalVars) SetLong(index uint, value int64) {
 
 // 得到长整型
 func (self LocalVars) GetLong(index uint) int64 {
-	low := self[index].number
-	high := self[index + 1].number
+	low := uint32(self[index].number)
+	high := uint32(self[index + 1].number)
 	return (int64(high) << 32) | int64(low)
 }
 
