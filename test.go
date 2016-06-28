@@ -6,6 +6,7 @@ import (
 	"strings"
 	"HTVM/classfile"
 	"strconv"
+	"HTVM/runtime"
 )
 
 var startJVM = func(cmd *Command) {
@@ -38,6 +39,30 @@ func printClassFile(classFile *classfile.ClassFile) {
 	}
 }
 
+func testFrame() {
+	frame := runtime.NewFrame(512, 512)
+	testLocalVars(frame.LocalVars())
+}
+
+func testLocalVars(v runtime.LocalVars) {
+	v.SetInt(0, 123)
+	v.SetInt(1, -321)
+	v.SetLong(2, 2997924580)
+	v.SetLong(4, -2997924580)
+	v.SetFloat(6, 3.1415926)
+	v.SetFloat(7, -3.1415926)
+	v.SetDouble(8, 2.71828182818281828)
+	v.SetDouble(10, -2.71828182818281828)
+	println(v.GetInt(0))
+	println(v.GetInt(1))
+	println(v.GetLong(2))
+	println(v.GetLong(4))
+	println(v.GetFloat(6))
+	println(v.GetFloat(7))
+	println(v.GetDouble(8))
+	println(v.GetDouble(10))
+}
+
 func main() {
 	cmd := ParseCommand()
 	if cmd.versionFlag {
@@ -45,6 +70,7 @@ func main() {
 	} else if cmd.helpFlag || cmd.class == "" {
 		PrintUsage()
 	} else {
-		startJVM(cmd)
+		//startJVM(cmd)
+		testFrame()
 	}
 }

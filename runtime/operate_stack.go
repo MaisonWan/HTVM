@@ -36,7 +36,7 @@ func (self *OperateStack) PushFloat(value float32) {
 
 func (self *OperateStack) PopFloat() float32 {
 	self.size--
-	n := self.slots[self.size].number
+	n := uint32(self.slots[self.size].number)
 	return math.Float32frombits(n)
 }
 
@@ -58,7 +58,7 @@ func (self *OperateStack) PushDouble(value float64) {
 	self.PushLong(int64(bits))
 }
 
-func (self *OperateStack) PopDouble() int64 {
+func (self *OperateStack) PopDouble() float64 {
 	bits := uint64(self.PopLong())
 	return math.Float64frombits(bits)
 }
@@ -76,3 +76,4 @@ func (self *OperateStack) PopRef() *Object {
 	self.slots[self.size].ref = nil
 	return ref
 }
+
