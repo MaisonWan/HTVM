@@ -7,6 +7,7 @@ import (
 
 type CompositePath []Path
 
+// 根据路径分隔符(;)，分割开来，返回数组
 func NewCompositePath(pathList string) CompositePath {
 	compositeClass := []Path{}
 	var paths = strings.Split(pathList, pathListSeparator)

@@ -21,7 +21,7 @@ func ParseCommand() *Command {
 	flag.Parse()
 
 	jargs := flag.Args()
-	fmt.Println(jargs)
+	fmt.Println(jargs) // 打印参数
 	if len(jargs) > 0 {
 		cmd.class = jargs[0]
 		cmd.args = jargs[1:]

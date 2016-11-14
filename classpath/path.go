@@ -16,7 +16,7 @@ type Path interface {
 }
 
 func NewPath(path string) Path {
-	// 如果包含分隔符
+	// 如果包含分隔符(;)
 	if strings.Contains(path, pathListSeparator) {
 		return NewCompositePath(path)
 	}
