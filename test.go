@@ -11,8 +11,8 @@ import (
 
 var startJVM = func(cmd *Command) {
 	cp := classpath.Parse(cmd.XjreOption, cmd.cpOption)
-	fmt.Printf("classpath: %s class: %s args: %v\n", cp, cmd.class, cmd.args)
-	className := strings.Replace(cmd.class, ".", "/", -1)
+	fmt.Printf(" Classpath: %s\n Main Class: %s\n Args: %v\n", cp, cmd.class, cmd.args)
+	className := strings.Replace(cmd.class, ".", "/", -1) // 将包名转化为本地路径
 	classData, _, err := cp.ReadClass(className)
 	classFile, _ := classfile.Parser(classData)
 	if err != nil {
