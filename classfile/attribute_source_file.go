@@ -7,10 +7,10 @@ type AttributeSourceFile struct {
 }
 
 func (self *AttributeSourceFile) readInfo(reader *ClassReader) {
-	self.sourceFileIndex = reader.readUint16()
+	self.sourceFileIndex = reader.ReadUint16()
 }
 
 func (self *AttributeSourceFile) FileName() string {
-	return self.cp.getUtf8(self.sourceFileIndex)
+	return self.cp.GetUtf8(self.sourceFileIndex)
 }
 

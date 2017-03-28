@@ -7,9 +7,9 @@ type ConstantClassInfo struct {
 }
 
 func (self *ConstantClassInfo) readInfo(reader *ClassReader) {
-	self.nameIndex = reader.readUint16()
+	self.nameIndex = reader.ReadUint16()
 }
 
 func (self *ConstantClassInfo) Name() string {
-	return self.cp.getClassName(self.nameIndex)
+	return self.cp.GetClassName(self.nameIndex)
 }

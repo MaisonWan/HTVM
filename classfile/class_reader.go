@@ -7,41 +7,41 @@ type ClassReader struct {
 	data []byte
 }
 
-func (self *ClassReader) readUint8() uint8 {
-	value := self.data[0]
-	self.data = self.data[1:]
+func (cr *ClassReader) ReadUint8() uint8 {
+	value := cr.data[0]
+	cr.data = cr.data[1:]
 	return value
 }
 
-func (self *ClassReader) readUint16() uint16 {
-	value := binary.BigEndian.Uint16(self.data)
-	self.data = self.data[2:]
+func (cr *ClassReader) ReadUint16() uint16 {
+	value := binary.BigEndian.Uint16(cr.data)
+	cr.data = cr.data[2:]
 	return value
 }
 
-func (self *ClassReader) readUint32() uint32 {
-	value := binary.BigEndian.Uint32(self.data)
-	self.data = self.data[4:]
+func (cr *ClassReader) ReadUint32() uint32 {
+	value := binary.BigEndian.Uint32(cr.data)
+	cr.data = cr.data[4:]
 	return value
 }
 
-func (self *ClassReader) readUint64() uint64 {
-	value := binary.BigEndian.Uint64(self.data)
-	self.data = self.data[8:]
+func (cr *ClassReader) ReadUint64() uint64 {
+	value := binary.BigEndian.Uint64(cr.data)
+	cr.data = cr.data[8:]
 	return value
 }
 
-func (self *ClassReader) readUint16s() []uint16 {
-	n := self.readUint16()
+func (cr *ClassReader) ReadUint16s() []uint16 {
+	n := cr.ReadUint16()
 	s := make([]uint16, n)
 	for i := range s {
-		s[i] = self.readUint16()
+		s[i] = cr.ReadUint16()
 	}
 	return s
 }
 
-func (self *ClassReader) readBytes(n uint32) []byte {
-	s := self.data[:n]
-	self.data = self.data[n:]
+func (cr *ClassReader) ReadBytes(n uint32) []byte {
+	s := cr.data[:n]
+	cr.data = cr.data[n:]
 	return s
 }

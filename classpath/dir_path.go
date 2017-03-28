@@ -3,6 +3,7 @@ package classpath
 import (
 	"path/filepath"
 	"io/ioutil"
+	"fmt"
 )
 
 // 目录形式的类路径
@@ -12,6 +13,7 @@ type DirPath struct {
 
 func newDirPath(path string) *DirPath {
 	absDir, err := filepath.Abs(path)
+	fmt.Println("newDirPath: " + absDir)
 	if err != nil {
 		panic(err)
 	}
@@ -19,13 +21,14 @@ func newDirPath(path string) *DirPath {
 }
 
 // 加载类数据
-func (self *DirPath) readClass(className string) ([]byte, Path, error) {
-	fileName := filepath.Join(self.absoluteDir, className)
+func (dp *DirPath) readClass(className string) ([]byte, Path, error) {
+	fileName := filepath.Join(dp.absoluteDir, className)
+	fmt.Println("newDirPath readClass: " + fileName)
 	data, err := ioutil.ReadFile(fileName)
-	return data, self, err
+	return data, dp, err
 }
 
 // 返回路径
-func (self *DirPath) String() string {
-	return self.absoluteDir
+func (dp *DirPath) String() string {
+	return dp.absoluteDir
 }

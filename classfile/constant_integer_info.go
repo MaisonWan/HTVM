@@ -5,6 +5,6 @@ type ConstantIntegerInfo struct {
 }
 
 func (self *ConstantIntegerInfo) readInfo(reader *ClassReader) {
-	value := reader.readUint32()
+	value := reader.ReadUint32()
 	self.value = int32(value)
 }

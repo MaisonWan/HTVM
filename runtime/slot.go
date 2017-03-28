@@ -21,46 +21,46 @@ func newLocalVars(maxLocals uint) LocalVars {
 }
 
 // 设置整形
-func (self LocalVars) SetInt(index uint, value int32) {
-	self[index].number = value
+func (lv LocalVars) SetInt(index uint, value int32) {
+	lv[index].number = value
 }
 
-func (self LocalVars) GetInt(index uint) int32 {
-	return self[index].number
+func (lv LocalVars) GetInt(index uint) int32 {
+	return lv[index].number
 }
 
-func (self LocalVars) SetFloat(index uint, value float32) {
+func (lv LocalVars) SetFloat(index uint, value float32) {
 	bits := math.Float32bits(value)
-	self[index].number = int32(bits)
+	lv[index].number = int32(bits)
 }
 
-func (self LocalVars) GetFloat(index uint) float32 {
-	bits := uint32(self[index].number)
+func (lv LocalVars) GetFloat(index uint) float32 {
+	bits := uint32(lv[index].number)
 	return math.Float32frombits(bits)
 }
 
 // 设置长整形，需要两个int的空间
-func (self LocalVars) SetLong(index uint, value int64) {
-	self[index].number = int32(value)
-	self[index + 1].number = int32(value >> 32)
+func (lv LocalVars) SetLong(index uint, value int64) {
+	lv[index].number = int32(value)
+	lv[index + 1].number = int32(value >> 32)
 }
 
 // 得到长整型
-func (self LocalVars) GetLong(index uint) int64 {
-	low := uint32(self[index].number)
-	high := uint32(self[index + 1].number)
+func (lv LocalVars) GetLong(index uint) int64 {
+	low := uint32(lv[index].number)
+	high := uint32(lv[index + 1].number)
 	return (int64(high) << 32) | int64(low)
 }
 
 // 写入64位浮点
-func (self LocalVars) SetDouble(index uint, value float64) {
+func (lv LocalVars) SetDouble(index uint, value float64) {
 	bits := math.Float64bits(value)
-	self.SetLong(index, int64(bits))
+	lv.SetLong(index, int64(bits))
 }
 
 // 得到浮点数
-func (self LocalVars) GetDouble(index uint) float64 {
-	bits := uint64(self.GetLong(index))
+func (lv LocalVars) GetDouble(index uint) float64 {
+	bits := uint64(lv.GetLong(index))
 	return math.Float64frombits(bits)
 }
 

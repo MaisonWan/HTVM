@@ -15,33 +15,33 @@ func newStack(maxSize uint) *Stack {
 }
 
 // 入栈
-func (self *Stack) push(frame *Frame) {
-	if self.size >= self.maxSize {
+func (s *Stack) push(frame *Frame) {
+	if s.size >= s.maxSize {
 		panic("java.lang.StackOverflowError")
 	}
-	if self._top != nil {
-		frame.next = self._top
+	if s._top != nil {
+		frame.next = s._top
 	}
-	self._top = frame
-	self.size++
+	s._top = frame
+	s.size++
 }
 
 // 弹出栈空间
-func (self *Stack) pop() *Frame {
-	if self._top == nil {
+func (s *Stack) pop() *Frame {
+	if s._top == nil {
 		panic("jvm stack is empty")
 	}
-	top := self._top
-	self._top = top.next
+	top := s._top
+	s._top = top.next
 	top.next = nil
-	self.size--
+	s.size--
 	return top
 }
 
 // 返回栈顶空间，不弹出栈
-func (self *Stack) top() *Frame {
-	if self._top == nil {
+func (s *Stack) top() *Frame {
+	if s._top == nil {
 		panic("jvm stack is empty!")
 	}
-	return self._top
+	return s._top
 }

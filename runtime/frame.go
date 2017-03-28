@@ -14,10 +14,10 @@ func NewFrame(maxLocals, maxStack uint) *Frame {
 	}
 }
 
-func (self *Frame) LocalVars() LocalVars {
-	return self.localVars
+func (f *Frame) LocalVars() LocalVars {
+	return f.localVars
 }
 
-func (self *Frame) OperateStack() *OperateStack {
-	return self.operateStack
+func (f *Frame) OperateStack() *OperateStack {
+	return f.operateStack
 }

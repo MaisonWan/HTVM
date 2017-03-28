@@ -26,7 +26,7 @@ func printClassFile(classFile *classfile.ClassFile) {
 	//fmt.Printf("class data: %v\n", classData)
 	fmt.Println("MajorVersion: ", classFile.MajorVersion())
 	fmt.Println("ClassName: ", classFile.ClassName())
-	fmt.Println("AccessFlags: 0x", strconv.FormatInt(int64(classFile.AccessFlags()), 16))
+	fmt.Println("AccessFlags: 0x" + strconv.FormatInt(int64(classFile.AccessFlags()), 16))
 	fmt.Println("InterfaceNames: ", classFile.InterfaceNames())
 	fmt.Println("Fields: ", classFile.InterfaceNames())
 	fmt.Println("Fields======================")
@@ -88,7 +88,7 @@ func main() {
 	} else if cmd.helpFlag || cmd.class == "" {
 		PrintUsage()
 	} else {
-		//startJVM(cmd)
-		testFrame()
+		startJVM(cmd)
+		//testFrame()
 	}
 }

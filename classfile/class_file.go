@@ -4,6 +4,7 @@ import (
 	"fmt"
 )
 
+// class文件的结构
 type ClassFile struct {
 	// 魔数，用于标示是否是合法class文件
 	magic        uint32
@@ -30,7 +31,7 @@ type ClassFile struct {
 }
 
 // 解析成ClassFile
-func Parser(classData []byte) (cf *ClassFile, err error) {
+func Parser(classData []byte) (classfile *ClassFile, err error) {
 	defer func() {
 		if r := recover(); r != nil {
 			var ok bool
@@ -41,28 +42,28 @@ func Parser(classData []byte) (cf *ClassFile, err error) {
 		}
 	}()
 	cr := &ClassReader{classData}
-	cf = &ClassFile{}
-	cf.read(cr)
+	classfile = &ClassFile{}
+	classfile.read(cr)
 	return
 }
 
 // 通过使用ClassReader解析成ClassFile
-func (self *ClassFile) read(reader *ClassReader) {
-	self.readAndCheckMagic(reader)
-	self.readAndCheckVersion(reader)
-	self.constantPool = readConstantPool(reader)
-	self.accessFlags = reader.readUint16()
-	self.thisClass = reader.readUint16()
-	self.superClass = reader.readUint16()
-	self.interfaces = reader.readUint16s()
-	self.fields = readMembers(reader, self.constantPool)
-	self.methods = readMembers(reader, self.constantPool)
-	self.attributes = readAttributes(reader, self.constantPool)
+func (cf *ClassFile) read(reader *ClassReader) {
+	cf.readAndCheckMagic(reader)
+	cf.readAndCheckVersion(reader)
+	cf.constantPool = ReadConstantPool(reader)
+	cf.accessFlags = reader.ReadUint16()
+	cf.thisClass = reader.ReadUint16()
+	cf.superClass = reader.ReadUint16()
+	cf.interfaces = reader.ReadUint16s()
+	cf.fields = readMembers(reader, cf.constantPool)
+	cf.methods = readMembers(reader, cf.constantPool)
+	cf.attributes = readAttributes(reader, cf.constantPool)
 }
 
-// 读取魔数，并验证合法性
-func (self *ClassFile) readAndCheckMagic(reader *ClassReader) {
-	magic := reader.readUint32()
+// 读取魔数，并验证合法性，Java class文件的魔数是0xCAFEBABE
+func (cf *ClassFile) readAndCheckMagic(reader *ClassReader) {
+	magic := reader.ReadUint32()
 	if magic != 0xCAFEBABE {
 		panic("java.lang.ClassFormatError: magic!")
 	}
@@ -70,14 +71,14 @@ func (self *ClassFile) readAndCheckMagic(reader *ClassReader) {
 
 // 读取版本号，1.2之前才有小版本号，1.2大版本号是46
 // Java 6: 50, Java 7: 51, Java 8: 52
-func (self *ClassFile) readAndCheckVersion(reader *ClassReader) {
-	self.minorVersion = reader.readUint16()
-	self.majorVersion = reader.readUint16()
-	switch self.majorVersion {
+func (cf *ClassFile) readAndCheckVersion(reader *ClassReader) {
+	cf.minorVersion = reader.ReadUint16()
+	cf.majorVersion = reader.ReadUint16()
+	switch cf.majorVersion {
 	case 45:
 		return
 	case 46, 47, 48, 49, 50, 51, 52:
-		if self.minorVersion == 0 {
+		if cf.minorVersion == 0 {
 			return
 		}
 	}
@@ -85,46 +86,46 @@ func (self *ClassFile) readAndCheckVersion(reader *ClassReader) {
 }
 
 // Getter方法
-func (self *ClassFile) MinorVersion() uint16 {
-	return self.minorVersion
+func (cf *ClassFile) MinorVersion() uint16 {
+	return cf.minorVersion
 }
 
-func (self *ClassFile) MajorVersion() uint16 {
-	return self.majorVersion
+func (cf *ClassFile) MajorVersion() uint16 {
+	return cf.majorVersion
 }
 
-func (self *ClassFile) ConstantPool() ConstantPool {
-	return self.constantPool
+func (cf *ClassFile) ConstantPool() ConstantPool {
+	return cf.constantPool
 }
 
-func (self *ClassFile) AccessFlags() uint16 {
-	return self.accessFlags
+func (cf *ClassFile) AccessFlags() uint16 {
+	return cf.accessFlags
 }
 
-func (self *ClassFile) Fields() []*MemberInfo {
-	return self.fields
+func (cf *ClassFile) Fields() []*MemberInfo {
+	return cf.fields
 }
 
-func (self *ClassFile) Methods() []*MemberInfo {
-	return self.methods
+func (cf *ClassFile) Methods() []*MemberInfo {
+	return cf.methods
 }
 
-func (self *ClassFile) ClassName() string {
-	return self.constantPool.getClassName(self.thisClass)
+func (cf *ClassFile) ClassName() string {
+	return cf.constantPool.GetClassName(cf.thisClass)
 }
 
-func (self *ClassFile) SuperClassName() string {
-	if self.superClass > 0 {
-		return self.constantPool.getClassName(self.superClass)
+func (cf *ClassFile) SuperClassName() string {
+	if cf.superClass > 0 {
+		return cf.constantPool.GetClassName(cf.superClass)
 	}
 	return "" // 只有java.lang.Object没有超类
 }
 
-func (self *ClassFile) InterfaceNames() []string {
-	length := len(self.interfaces)
+func (cf *ClassFile) InterfaceNames() []string {
+	length := len(cf.interfaces)
 	interfaceNames := make([]string, length)
-	for i, cpIndex := range self.interfaces {
-		interfaceNames[i] = self.constantPool.getClassName(cpIndex)
+	for i, cpIndex := range cf.interfaces {
+		interfaceNames[i] = cf.constantPool.GetClassName(cpIndex)
 	}
 	return interfaceNames
 }

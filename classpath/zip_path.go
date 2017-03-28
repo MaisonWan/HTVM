@@ -11,6 +11,7 @@ type ZipPath struct {
 	absolutePath string
 }
 
+// jar包方式的路径
 func newZipPath(path string) *ZipPath {
 	absPath, err := filepath.Abs(path)
 	if err != nil {
@@ -20,8 +21,8 @@ func newZipPath(path string) *ZipPath {
 }
 
 // 从Zip里加载class
-func (self *ZipPath) readClass(className string) ([]byte, Path, error) {
-	reader, err := zip.OpenReader(self.absolutePath)
+func (zp *ZipPath) readClass(className string) ([]byte, Path, error) {
+	reader, err := zip.OpenReader(zp.absolutePath)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -39,12 +40,12 @@ func (self *ZipPath) readClass(className string) ([]byte, Path, error) {
 			if err != nil {
 				return nil, nil, err
 			}
-			return data, self, err
+			return data, zp, err
 		}
 	}
 	return nil, nil, errors.New("class not found: " + className)
 }
 
-func (self *ZipPath) String() string {
-	return self.absolutePath
+func (zp *ZipPath) String() string {
+	return zp.absolutePath
 }

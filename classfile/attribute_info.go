@@ -8,9 +8,9 @@ type AttributeInfo interface {
 
 // 从数据流中读取一个属性值
 func readAttribute(reader *ClassReader, cp ConstantPool) AttributeInfo {
-	nameIndex := reader.readUint16()
-	attrName := cp.getUtf8(nameIndex)
-	length := reader.readUint32()
+	nameIndex := reader.ReadUint16()
+	attrName := cp.GetUtf8(nameIndex)
+	length := reader.ReadUint32()
 	attrInfo := newAttributeInfo(attrName, length, cp)
 	attrInfo.readInfo(reader)
 	return attrInfo
@@ -18,7 +18,7 @@ func readAttribute(reader *ClassReader, cp ConstantPool) AttributeInfo {
 
 // 读取多个属性
 func readAttributes(reader *ClassReader, cp ConstantPool) []AttributeInfo {
-	count := reader.readUint16()
+	count := reader.ReadUint16()
 	attributes := make([]AttributeInfo, count)
 	for i := range attributes {
 		attributes[i] = readAttribute(reader, cp)

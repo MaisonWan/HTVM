@@ -15,8 +15,11 @@ type Path interface {
 	String() string
 }
 
+/**
+ * 根据给定的路径，创个新的加载路径
+ */
 func NewPath(path string) Path {
-	// 如果包含分隔符
+	// 如果包含分隔符，组合路径
 	if strings.Contains(path, pathListSeparator) {
 		return NewCompositePath(path)
 	}

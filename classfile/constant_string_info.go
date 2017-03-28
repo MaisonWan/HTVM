@@ -7,9 +7,9 @@ type ConstantStringInfo struct {
 }
 
 func (self *ConstantStringInfo) readInfo(reader *ClassReader) {
-	self.stringIndex = reader.readUint16()
+	self.stringIndex = reader.ReadUint16()
 }
 
 func (self *ConstantStringInfo) String() string {
-	return self.cp.getUtf8(self.stringIndex)
+	return self.cp.GetUtf8(self.stringIndex)
 }

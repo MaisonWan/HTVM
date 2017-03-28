@@ -11,12 +11,12 @@ type LineNumberTableInfo struct {
 
 // 读取信息
 func (self *AttributeLineNumberTable) readInfo(reader *ClassReader) {
-	lineNumberTableLength := reader.readUint16()
+	lineNumberTableLength := reader.ReadUint16()
 	self.lineNumberTable = make([]*LineNumberTableInfo, lineNumberTableLength)
 	for i := range self.lineNumberTable {
 		self.lineNumberTable[i] = &LineNumberTableInfo{
-			startPc:reader.readUint16(),
-			lineNumber:reader.readUint16(),
+			startPc:reader.ReadUint16(),
+			lineNumber:reader.ReadUint16(),
 		}
 	}
 }

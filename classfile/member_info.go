@@ -17,15 +17,15 @@ type MemberInfo struct {
 func readMember(reader *ClassReader, cp ConstantPool) *MemberInfo {
 	return &MemberInfo{
 		cp: cp,
-		accessFlags:reader.readUint16(),
-		nameIndex:reader.readUint16(),
-		descriptorIndex:reader.readUint16(),
+		accessFlags:reader.ReadUint16(),
+		nameIndex:reader.ReadUint16(),
+		descriptorIndex:reader.ReadUint16(),
 		attributes: readAttributes(reader, cp),
 	}
 }
 
 func readMembers(reader *ClassReader, cp ConstantPool) []*MemberInfo {
-	memberCount := reader.readUint16()
+	memberCount := reader.ReadUint16()
 	memberInfos := make([]*MemberInfo, memberCount)
 	for i := range memberInfos {
 		memberInfos[i] = readMember(reader, cp)
@@ -35,12 +35,12 @@ func readMembers(reader *ClassReader, cp ConstantPool) []*MemberInfo {
 
 // 得到名字
 func (self *MemberInfo) Name() string {
-	return self.cp.getUtf8(self.nameIndex)
+	return self.cp.GetUtf8(self.nameIndex)
 }
 
 // 得到描述
 func (self *MemberInfo) Descriptor() string {
-	return self.cp.getUtf8(self.descriptorIndex)
+	return self.cp.GetUtf8(self.descriptorIndex)
 }
 
 // 属性列表

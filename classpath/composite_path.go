@@ -7,6 +7,7 @@ import (
 
 type CompositePath []Path
 
+// 组合路径，使用分号隔开。创建之后，就是Path的数组方式
 func NewCompositePath(pathList string) CompositePath {
 	compositeClass := []Path{}
 	var paths = strings.Split(pathList, pathListSeparator)
@@ -18,8 +19,8 @@ func NewCompositePath(pathList string) CompositePath {
 }
 
 // 读取每个子路径然后返回
-func (self CompositePath) readClass(className string) ([]byte, Path, error) {
-	for _, class := range self {
+func (cp CompositePath) readClass(className string) ([]byte, Path, error) {
+	for _, class := range cp {
 		data, from, err := class.readClass(className)
 		if err == nil {
 			return data, from, err

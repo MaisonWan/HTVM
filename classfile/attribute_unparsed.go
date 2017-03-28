@@ -8,5 +8,5 @@ type UnparsedAttribute struct {
 }
 
 func (self *UnparsedAttribute) readInfo(reader *ClassReader) {
-	self.info = reader.readBytes(self.length)
+	self.info = reader.ReadBytes(self.length)
 }

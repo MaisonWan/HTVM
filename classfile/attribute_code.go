@@ -1,5 +1,6 @@
 package classfile
 
+
 // 代码属性，存储方法的内容
 type AttributeCode struct {
 	cp             ConstantPool
@@ -20,24 +21,24 @@ type ExceptionTableInfo struct {
 
 // 读取信息
 func (self *AttributeCode) readInfo(reader *ClassReader) {
-	self.maxStack = reader.readUint16()
-	self.maxLocals = reader.readUint16()
-	codeLength := reader.readUint32()
-	self.code = reader.readBytes(codeLength)
+	self.maxStack = reader.ReadUint16()
+	self.maxLocals = reader.ReadUint16()
+	codeLength := reader.ReadUint32()
+	self.code = reader.ReadBytes(codeLength)
 	self.exceptionTable = readExceptionTable(reader)
 	self.attributes = readAttributes(reader, self.cp)
 }
 
 // 读取异常表
 func readExceptionTable(reader *ClassReader) []*ExceptionTableInfo {
-	tableLength := reader.readUint16()
+	tableLength := reader.ReadUint16()
 	exceptionTable := make([]*ExceptionTableInfo, tableLength)
 	for i := range exceptionTable {
 		exceptionTable[i] = &ExceptionTableInfo{
-			startPc:reader.readUint16(),
-			endPc:reader.readUint16(),
-			handlerPc:reader.readUint16(),
-			catchType:reader.readUint16(),
+			startPc:reader.ReadUint16(),
+			endPc:reader.ReadUint16(),
+			handlerPc:reader.ReadUint16(),
+			catchType:reader.ReadUint16(),
 		}
 	}
 	return exceptionTable

@@ -1,6 +1,8 @@
 package classfile
 
-import "math"
+import (
+	"math"
+)
 
 type ConstantDoubleInfo struct {
 	value float64
@@ -8,6 +10,6 @@ type ConstantDoubleInfo struct {
 
 // 读取8字节的double
 func (self *ConstantDoubleInfo) readInfo(reader *ClassReader) {
-	value := reader.readUint64()
+	value := reader.ReadUint64()
 	self.value = math.Float64frombits(value)
 }

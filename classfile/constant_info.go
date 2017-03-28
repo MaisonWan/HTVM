@@ -1,5 +1,6 @@
 package classfile
 
+
 const (
 	CONSTANT_Class = 7
 	CONSTANT_Field = 9
@@ -23,7 +24,7 @@ type ConstantInfo interface {
 }
 
 func readConstantInfo(reader *ClassReader, cp ConstantPool) ConstantInfo {
-	tag := reader.readUint8()
+	tag := reader.ReadUint8()
 	c := newConstantInfo(tag, cp)
 	c.readInfo(reader)
 	return c
