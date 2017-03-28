@@ -45,3 +45,7 @@ func (s *Stack) top() *Frame {
 	}
 	return s._top
 }
+
+func (s *Stack) size() uint {
+	return s.size
+}

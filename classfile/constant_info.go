@@ -2,20 +2,20 @@ package classfile
 
 
 const (
-	CONSTANT_Class = 7
-	CONSTANT_Field = 9
-	CONSTANT_Method = 10
-	CONSTANT_InterfaceMethod = 11
-	CONSTANT_String = 8
+	CONSTANT_Utf8 = 1
 	CONSTANT_Integer = 3
 	CONSTANT_Float = 4
 	CONSTANT_Long = 5
 	CONSTANT_Double = 6
+	CONSTANT_Class = 7
+	CONSTANT_String = 8
+	CONSTANT_Field = 9
+	CONSTANT_Method = 10
+	CONSTANT_InterfaceMethod = 11
 	CONSTANT_NameAndType = 12
-	CONSTANT_Utf8 = 1
-	CONSTANT_MethodHandle = 15
-	CONSTANT_MethodType = 16
-	CONSTANT_InvokeDynamic = 18
+	//CONSTANT_MethodHandle = 15
+	//CONSTANT_MethodType = 16
+	//CONSTANT_InvokeDynamic = 18
 )
 
 // 常量信息类
