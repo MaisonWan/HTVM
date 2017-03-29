@@ -3,7 +3,7 @@ package runtime
 // jvm中栈指针，超出这个大小，就会出现stackoverflow
 type Stack struct {
 	maxSize uint
-	size    uint
+	_size   uint
 	_top    *Frame // 栈顶指针
 }
 
@@ -16,14 +16,14 @@ func newStack(maxSize uint) *Stack {
 
 // 入栈
 func (s *Stack) push(frame *Frame) {
-	if s.size >= s.maxSize {
+	if s._size >= s.maxSize {
 		panic("java.lang.StackOverflowError")
 	}
 	if s._top != nil {
 		frame.next = s._top
 	}
 	s._top = frame
-	s.size++
+	s._size++
 }
 
 // 弹出栈空间
@@ -34,7 +34,7 @@ func (s *Stack) pop() *Frame {
 	top := s._top
 	s._top = top.next
 	top.next = nil
-	s.size--
+	s._size--
 	return top
 }
 
@@ -47,5 +47,5 @@ func (s *Stack) top() *Frame {
 }
 
 func (s *Stack) size() uint {
-	return s.size
+	return s._size
 }
