@@ -64,3 +64,12 @@ func (lv LocalVars) GetDouble(index uint) float64 {
 	return math.Float64frombits(bits)
 }
 
+// 设置引用值
+func (lv LocalVars) SetRef(index uint, obj *Object) {
+	lv[index].ref = obj
+}
+
+// 获取引用值
+func (lv LocalVars) GetRef(index uint) *Object {
+	return lv[index].ref
+}
