@@ -6,7 +6,7 @@ type BytecodeReader struct {
 	pc   int
 }
 
-func (self *BytecodeReader) Reset(code []byte, pc int)  {
+func (self *BytecodeReader) Reset(code []byte, pc int) {
 	self.code = code
 	self.pc = pc
 }
@@ -31,10 +31,26 @@ func (self *BytecodeReader) ReadInt16() int16 {
 	return int16(self.ReadUint16())
 }
 
-func (self *BytecodeReader) ReadInt32() uint32 {
+func (self *BytecodeReader) ReadInt32() int32 {
 	byte1 := int32(self.ReadUint8())
 	byte2 := int32(self.ReadUint8())
 	byte3 := int32(self.ReadUint8())
 	byte4 := int32(self.ReadUint8())
 	return (byte1 << 24) | (byte2 << 16) | (byte3 << 8) | byte4
+}
+
+// 按照指定大小读取一个int32的数组返回
+func (self *BytecodeReader) ReadInt32s(n int32) []int32 {
+	nums := make([]int32, n)
+	for i := range nums {
+		nums[i] = self.ReadInt32()
+	}
+	return nums
+}
+
+// 跳转字节
+func (self *BytecodeReader) SkipPadding() {
+	if self.pc % 4 != 0 {
+		self.ReadUint8()
+	}
 }

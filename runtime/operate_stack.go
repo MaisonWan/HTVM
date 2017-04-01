@@ -78,18 +78,13 @@ func (self *OperateStack) PopRef() *Object {
 }
 
 // 引用类型
-func (self *OperateStack) PushSlot(slot *Slot) {
-	if slot != nil {
-		self.slots[self.size] = slot
-		self.size++
-	}
+func (self *OperateStack) PushSlot(slot Slot) {
+	self.slots[self.size] = slot
+	self.size++
 }
 
 // 弹出引用，记得置位为nil，内存释放
 func (self *OperateStack) PopSlot() Slot {
-	if self.size > 0 {
-		self.size--
-		return self.slots[self.size]
-	}
-	return nil
+	self.size--
+	return self.slots[self.size]
 }
