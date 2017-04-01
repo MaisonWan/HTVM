@@ -10,7 +10,7 @@ type Frame struct {
 }
 
 // 创建新的帧，最大的本地，最大的栈空间
-func NewFrame(thread *Thread, maxLocals, maxStack uint) *Frame {
+func newFrame(thread *Thread, maxLocals, maxStack uint) *Frame {
 	return &Frame{
 		thread:      thread,
 		localVars:   newLocalVars(maxLocals),

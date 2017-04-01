@@ -6,51 +6,51 @@ import (
 )
 
 // 栈顶弹出float类型的值，然后写入临时变量区
-type ASOTRE struct {
+type ASTORE struct {
 	base.Index8Instruction
 }
 
-func (self *ASOTRE) Execute(frame *runtime.Frame) {
+func (self *ASTORE) Execute(frame *runtime.Frame) {
 	_executeRef(frame, self.Index)
 }
 
-type ASOTRE_0 struct {
+type ASTORE_0 struct {
 	base.NoOperandsInstruction
 }
 
-func (self *ASOTRE_0) Execute(frame *runtime.Frame) {
+func (self *ASTORE_0) Execute(frame *runtime.Frame) {
 	_executeRef(frame, 0)
 }
 
-type ASOTRE_1 struct {
+type ASTORE_1 struct {
 	base.NoOperandsInstruction
 }
 
-func (self *ASOTRE_1) Execute(frame *runtime.Frame) {
+func (self *ASTORE_1) Execute(frame *runtime.Frame) {
 	_executeRef(frame, 1)
 }
 
-type ASOTRE_2 struct {
+type ASTORE_2 struct {
 	base.NoOperandsInstruction
 }
 
-func (self *ASOTRE_2) Execute(frame *runtime.Frame) {
+func (self *ASTORE_2) Execute(frame *runtime.Frame) {
 	_executeRef(frame, 2)
 }
 
-type ASOTRE_3 struct {
+type ASTORE_3 struct {
 	base.NoOperandsInstruction
 }
 
-func (self *ASOTRE_3) Execute(frame *runtime.Frame) {
+func (self *ASTORE_3) Execute(frame *runtime.Frame) {
 	_executeRef(frame, 3)
 }
 
-type ASOTRE_4 struct {
+type ASTORE_4 struct {
 	base.NoOperandsInstruction
 }
 
-func (self *ASOTRE_4) Execute(frame *runtime.Frame) {
+func (self *ASTORE_4) Execute(frame *runtime.Frame) {
 	_executeRef(frame, 4)
 }
 

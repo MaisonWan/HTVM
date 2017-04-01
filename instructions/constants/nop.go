@@ -5,10 +5,10 @@ import (
 	"HTVM/runtime"
 )
 
-type Nop struct {
+type NOP struct {
 	base.NoOperandsInstruction
 }
 
-func (self *Nop) Execute(frame *runtime.Frame) {
+func (self *NOP) Execute(frame *runtime.Frame) {
 	// 不用做
 }
