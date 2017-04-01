@@ -47,3 +47,13 @@ func (self *MemberInfo) Descriptor() string {
 func (self *MemberInfo) AttributeInfo() []AttributeInfo {
 	return self.attributes
 }
+
+func (self *MemberInfo) CodeAttibutes() *AttributeCode {
+	for _, attrInfo := range self.attributes {
+		switch attrInfo.(type) {
+		case *AttributeCode:
+			return attrInfo.(*AttributeCode)
+		}
+	}
+	return nil
+}

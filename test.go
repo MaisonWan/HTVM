@@ -40,9 +40,9 @@ func printClassFile(classFile *classfile.ClassFile) {
 }
 
 func testFrame() {
-	frame := runtime.NewFrame(512, 512)
-	testLocalVars(frame.LocalVars())
-	testOpertateStack(frame.OperateStack())
+	//frame := runtime.NewFrame(512, 512)
+	//testLocalVars(frame.LocalVars())
+	//testOpertateStack(frame.OperateStack())
 }
 
 func testLocalVars(v runtime.LocalVars) {
