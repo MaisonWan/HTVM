@@ -10,7 +10,7 @@ type ACMPEQ struct {
 	base.BranchInstruction
 }
 
-func (self *ACMPEQ) Execute(frame runtime.Frame) {
+func (self *ACMPEQ) Execute(frame *runtime.Frame) {
 	v2 := frame.OperateStack().PopRef()
 	v1 := frame.OperateStack().PopRef()
 	if v1 == v2 {
@@ -23,7 +23,7 @@ type ACMPNE struct {
 	base.BranchInstruction
 }
 
-func (self *ACMPNE) Execute(frame runtime.Frame) {
+func (self *ACMPNE) Execute(frame *runtime.Frame) {
 	v2 := frame.OperateStack().PopRef()
 	v1 := frame.OperateStack().PopRef()
 	if v1 != v2 {

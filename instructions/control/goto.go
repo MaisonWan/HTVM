@@ -10,7 +10,7 @@ type GOTO struct {
 	base.BranchInstruction
 }
 
-func (self *GOTO) Execute(frame runtime.Frame) {
+func (self *GOTO) Execute(frame *runtime.Frame) {
 	base.Jump(frame, self.Offset)
 }
 

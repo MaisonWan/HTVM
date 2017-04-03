@@ -13,13 +13,33 @@ var startJVM = func(cmd *Command) {
 	cp := classpath.Parse(cmd.XjreOption, cmd.cpOption)
 	fmt.Printf(" Classpath: %s\n Main Class: %s\n Args: %v\n", cp, cmd.class, cmd.args)
 	className := strings.Replace(cmd.class, ".", "/", -1) // 将包名转化为本地路径
+	classFile := loadClass(className, cp)
+	//printClassFile(classFile)
+	mainClass := getMainClass(classFile)
+	if mainClass != nil {
+		interpreter(mainClass)
+	} else {
+		fmt.Printf("Main method not found in class %s\n", cmd.class)
+	}
+}
+
+func loadClass(className string, cp *classpath.Classpath) *classfile.ClassFile {
 	classData, _, err := cp.ReadClass(className)
 	classFile, _ := classfile.Parser(classData)
 	if err != nil {
-		fmt.Printf("Could not find or load main class %s\n", cmd.class)
-		return
+		fmt.Printf("Could not find or load main class %s\n", className)
+		return nil
 	}
-	printClassFile(classFile)
+	return classFile
+}
+
+func getMainClass(cf *classfile.ClassFile) *classfile.MemberInfo {
+	for _, m := range cf.Methods() {
+		if m.Name() == "main" && m.Descriptor() == "([Ljava/lang/String;)V" {
+			return m
+		}
+	}
+	return nil
 }
 
 func printClassFile(classFile *classfile.ClassFile) {

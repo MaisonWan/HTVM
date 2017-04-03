@@ -21,7 +21,7 @@ func (self *TABLE_SWITCH) FetchOperands(reader *base.BytecodeReader) {
 	self.jumpOffset = reader.ReadInt32s(count)
 }
 
-func (self *TABLE_SWITCH) Execute(frame runtime.Frame) {
+func (self *TABLE_SWITCH) Execute(frame *runtime.Frame) {
 	value := frame.OperateStack().PopInt()
 	var offset int
 	if value >= self.low && value <= self.high {

@@ -52,7 +52,7 @@ func (self *LSHL) Execute(frame *runtime.Frame) {
 	stack := frame.OperateStack()
 	v2 := stack.PopInt()
 	v1 := stack.PopLong()
-	result := v1 << (uint(v2) & 0x3F)
+	result := int32(v1 << (uint(v2) & 0x3F))
 	stack.PushInt(result)
 }
 
@@ -65,7 +65,7 @@ func (self *LSHR) Execute(frame *runtime.Frame) {
 	stack := frame.OperateStack()
 	v2 := stack.PopInt()
 	v1 := stack.PopLong()
-	result := v1 >> (uint(v2) & 0x3F)
+	result := int32(v1 >> (uint(v2) & 0x3F))
 	stack.PushInt(result)
 }
 

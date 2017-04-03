@@ -28,7 +28,7 @@ func (self *FREM) Execute(frame *runtime.Frame) {
 	stack := frame.OperateStack()
 	v2 := stack.PopFloat()
 	v1 := stack.PopFloat()
-	r := math.Mod(v1, v2)
+	r := math.Mod(float64(v1), float64(v2))
 	stack.PushFloat(float32(r))
 }
 

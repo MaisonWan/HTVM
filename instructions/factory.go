@@ -1,4 +1,4 @@
-package main
+package instructions
 
 import (
 	_ "HTVM/instructions/base"
@@ -9,6 +9,9 @@ import (
 	"HTVM/instructions/math"
 	"HTVM/instructions/conversions"
 	"HTVM/instructions/comparisons"
+	"HTVM/instructions/base"
+	"fmt"
+	"HTVM/instructions/control"
 )
 
 var (
@@ -129,6 +132,7 @@ var (
 	lor           = &math.LOR{}
 	ixor          = &math.IXOR{}
 	lxor          = &math.LXOR{}
+	iinc          = &math.IINC{}
 	i2l           = &conversions.I2L{}
 	i2f           = &conversions.I2F{}
 	i2d           = &conversions.I2D{}
@@ -149,6 +153,9 @@ var (
 	fcmpg         = &comparisons.FCMPG{}
 	dcmpl         = &comparisons.DCMPL{}
 	dcmpg         = &comparisons.DCMPG{}
+	if_icmpgt     = &comparisons.IF_ICMP_GT{}
+	go_to         = &control.GOTO{}
+	bipush        = &constants.BIPUSH{}
 //	ireturn       = &IRETURN{}
 //	lreturn       = &LRETURN{}
 //	freturn       = &FRETURN{}
@@ -162,9 +169,36 @@ var (
 //	invoke_native = &INVOKE_NATIVE{}
 )
 
-//func NewInstruction(opcode byte) base.Instruction {
-//	switch opcode {
-//	case 0x00:
-//
-//	}
-//}
+func NewInstruction(opcode byte) base.Instruction {
+	switch opcode {
+	case 0x00: return nop
+	case 0x01: return aconst_null
+	case 0x02: return iconst_m1
+	case 0x03: return iconst_0
+	case 0x04: return iconst_1
+	case 0x05: return iconst_2
+	case 0x06: return iconst_3
+	case 0x07: return iconst_4
+	case 0x08: return iconst_5
+	case 0x09: return lconst_0
+	case 0x0a: return lconst_1
+	case 0x10: return bipush
+	case 0x1a: return iload_0
+	case 0x1b: return iload_1
+	case 0x1c: return iload_2
+
+	case 0x3b: return istore_0
+	case 0x3c: return istore_1
+	case 0x3d: return istore_2
+
+	case 0x60: return iadd
+	case 0x84: return iinc
+
+	case 0xa3: return if_icmpgt
+	case 0xa7: return go_to
+
+	//case 0xb2: return getstati
+	default:
+		panic(fmt.Errorf("Unsupported opcde: 0x%x !", opcode))
+	}
+}
